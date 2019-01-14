@@ -1,0 +1,16 @@
+boot_delay=0
+gpu_mem=256
+gpu_mem_256=64
+# 64bit-mode
+arm_control=0x200
+kernel=vmlinuz-rpi
+initramfs initramfs-rpi
+device_tree_address=0x100
+device_tree_end=0x8000
+#enable_uart=1
+disable_overscan=1
+dtparam=sd_overclock=100
+# for sound over HDMI
+hdmi_drive=2
+# Enable audio (loads snd_bcm2835)
+dtparam=audio=on

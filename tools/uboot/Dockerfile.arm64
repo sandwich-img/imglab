@@ -1,0 +1,5 @@
+FROM sandwichimg/alpine:aarch64-edge
+
+COPY repositories /etc/apk/repositories
+
+RUN apk --update --no-cache add uboot-tools

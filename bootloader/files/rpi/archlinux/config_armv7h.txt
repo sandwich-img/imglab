@@ -1,0 +1,12 @@
+gpu_mem=64
+initramfs initramfs-linux.img followkernel
+# to take advantage of your high speed sd card
+dtparam=sd_overclock=100
+# use drm backend
+#dtoverlay=vc4-fkms-v3d
+# have a properly sized image
+disable_overscan=1
+# for sound over HDMI
+hdmi_drive=2
+# Enable audio (loads snd_bcm2835)
+dtparam=audio=on

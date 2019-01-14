@@ -1,0 +1,9 @@
+set timeout=2
+insmod all_video
+menuentry "Alpine Linux" {
+    search --no-floppy --fs-uuid --set=root --label boot
+    echo	'Loading Linux vanilla ...'
+    linux   /vmlinuz-vanilla root=LABEL=rootfs rw modules=sd-mod,usb-storage,ext4 nomodeset quiet rootfstype=ext4
+    echo	'Loading initial ramdisk ...'
+    initrd  /initramfs-vanilla
+}
