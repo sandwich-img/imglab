@@ -10,6 +10,12 @@ run(as root):
 DISTRO=alpine DESKTOP=base ARCH=aarch64 BRANCH=edge DEVICE=rpi make image
 ```
 
+to build arm img on amd64, need configure binfmt-support on the host
+
+```
+docker run --rm --privileged multiarch/qemu-user-static:register --reset
+```
+
 support matrix
 
 |Distros|arch                               |desktop    |devices                   |
