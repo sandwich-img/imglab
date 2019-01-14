@@ -1,9 +1,11 @@
 #!/bin/sh
 
-set -xe
+set -e
+
+apt-get update && apt-get install -y dirmngr
 
 echo "deb http://archive.raspberrypi.org/debian/ stretch main ui" | tee /etc/apt/sources.list.d/raspi.list
-apt-key adv --keyserver keyserver.ubuntu.com --recv 82B129927FA3303E 
+wget -qO - http://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add -
 apt-get update && apt-get upgrade -y
 
 mv /configs/etc/default/keyboard /etc/default/keyboard

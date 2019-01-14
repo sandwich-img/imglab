@@ -10,4 +10,4 @@ export:
 	./scripts/export.sh
 
 image: kernel export
-	./scripts/mkimage.sh	
+	./scripts/mkimage.sh
