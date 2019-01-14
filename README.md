@@ -1,3 +1,25 @@
+imghub, build linux img in docker way
+===
+
+this project build raspbian style img( contain two partitions, one for /boot, another one for /, flash with dd and auto resize when firstboot )
+build with docker, for different devices build same arch and distros can share rootfs
+
+```
+
++---------------------------+
+|         bootloader        |
+|                           |
++---------------------------+
++---------------------------+
+|           kernel          |
+|                           |
++---------------------------+
++---------------------------+
+|           rootfs          |
+|                           |
++---------------------------+
+```
+
 deps(alpine x86_64):
 
 ```
