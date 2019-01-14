@@ -22,15 +22,17 @@ grub-install --target=${GRUB_EFI_TARGET} --efi-directory=boot --boot-directory=b
 
 mv boot/grub.cfg.$DISTRO boot/grub/grub.cfg
 
-replace_debian_kernel_name() {
+setup_debian() {
 	KERNEL_NAME=$(find boot/vmlinuz* -printf "%f\n")
 	INITRD_NAME=$(find boot/initrd.img* -printf "%f\n")
 	sed -i "s|vmlinuz|$KERNEL_NAME|" boot/grub/grub.cfg
 	sed -i "s|initrd.img|$INITRD_NAME|" boot/grub/grub.cfg
+
+	echo "RESUME=LABEL=rootfs" > etc/initramfs-tools/conf.d/resume
 }
 
 case $DISTRO in
-	debian) replace_debian_kernel_name && echo "RESUME=LABEL=rootfs" > etc/initramfs-tools/conf.d/resume;;
+	debian) setup_debian;;
 esac
 
 sleep 6 

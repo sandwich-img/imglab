@@ -13,6 +13,4 @@ add_user_groups() {
 
 add_user_groups
 
-apt-get install -y network-manager
-
 mv /configs/etc/fstab /etc/fstab
