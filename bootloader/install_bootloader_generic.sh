@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -xe
+set -e
 
 #case $ARCH in
 #	 x86| i[3456]86 ) ARCH=x86 GRUB_EFI_TARGET=i386-efi;; 
@@ -23,14 +23,14 @@ grub-install --target=${GRUB_EFI_TARGET} --efi-directory=boot --boot-directory=b
 mv boot/grub.cfg.$DISTRO boot/grub/grub.cfg
 
 replace_debian_kernel_name() {
-	KERNEL_NAME=$(find /boot/vmlinuz* -printf "%f\n")
-	INITRD_NAME=$(find /boot/initrd.img* -printf "%f\n")
+	KERNEL_NAME=$(find boot/vmlinuz* -printf "%f\n")
+	INITRD_NAME=$(find boot/initrd.img* -printf "%f\n")
 	sed -i "s|vmlinuz|$KERNEL_NAME|" boot/grub/grub.cfg
 	sed -i "s|initrd.img|$INITRD_NAME|" boot/grub/grub.cfg
 }
 
 case $DISTRO in
-	debian) replace_debian_kenrel_name ;;
+	debian) replace_debian_kernel_name && echo "RESUME=LABEL=rootfs" > etc/initramfs-tools/conf.d/resume;;
 esac
 
 sleep 6 

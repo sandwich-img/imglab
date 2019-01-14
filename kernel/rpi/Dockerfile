@@ -4,8 +4,10 @@ FROM $ROOTFS
 COPY scripts /scripts
 
 ARG DISTRO=alpine
+ARG ARCH=x86
 
-ENV DISTRO=$DISTRO
+ENV DISTRO=$DISTRO \
+    ARCH=$ARCH
 
 RUN chmod +x /scripts/*
 

@@ -1,5 +1,5 @@
 #!/bin/sh
 
-set -xe
+set -e
 
 rm -rf /var/lib/apt/lists/* /tmp/*
