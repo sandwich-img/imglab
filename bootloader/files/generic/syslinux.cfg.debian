@@ -1,0 +1,8 @@
+PROMPT 1
+TIMEOUT 3
+DEFAULT debian
+
+LABEL debian
+	LINUX /vmlinuz
+	APPEND root=LABEL=rootfs rw rootfstype=ext4
+	INITRD /initrd.img

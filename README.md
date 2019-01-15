@@ -20,11 +20,7 @@ build with docker, for different devices build same arch and distros can share r
 +---------------------------+
 ```
 
-deps(alpine x86_64):
-
-```
-docker grub grub-bios grub-efi efibootmgr dosfstools e2fsprogs findutils util-linux make tar zip
-```
+deps: `make`, `docker`
 
 run(as root):
 

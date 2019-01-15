@@ -1,5 +1,0 @@
-FROM sandwichimg/alpine:x86-edge
-
-COPY repositories /etc/apk/repositories
-
-RUN apk --update --no-cache add grub grub-bios grub-efi efibootmgr

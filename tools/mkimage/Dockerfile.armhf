@@ -1,0 +1,17 @@
+FROM sandwichimg/alpine:armhf-edge
+
+COPY mkimage /mkimage
+COPY repositories /etc/apk/repositories
+
+ARG DISTRO=alpine
+ARG ARCH=armhf
+ARG DEVICE=rpi
+
+ENV DISTRO=$DISTRO \
+    ARCH=$ARCH \
+    DEVICE=$DEVICE
+
+RUN apk --update --no-cache add uboot-tools dosfstools e2fsprogs parted findutils util-linux tar zip
+RUN apk add --no-cache ca-certificates wget && update-ca-certificates
+
+CMD ["/mkimage"]

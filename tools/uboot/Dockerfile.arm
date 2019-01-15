@@ -1,5 +1,0 @@
-FROM sandwichimg/alpine:armhf-edge
-
-COPY repositories /etc/apk/repositories
-
-RUN apk --update --no-cache add uboot-tools

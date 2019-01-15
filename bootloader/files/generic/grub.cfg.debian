@@ -1,9 +1,0 @@
-set timeout=2
-insmod all_video
-menuentry "Debian" {
-    search --no-floppy --fs-uuid --set=root --label boot
-    echo	'Loading Linux kernel ...'
-    linux   /vmlinuz root=LABEL=rootfs rw rootfstype=ext4
-    echo	'Loading initial ramdisk ...'
-    initrd  /initrd.img
-}

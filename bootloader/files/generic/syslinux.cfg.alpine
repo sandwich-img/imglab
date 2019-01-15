@@ -1,0 +1,8 @@
+PROMPT 1
+TIMEOUT 3
+DEFAULT alpine
+
+LABEL alpine
+	LINUX /vmlinuz-vanilla
+	APPEND root=LABEL=rootfs rw modules=sd-mod,usb-storage,ext4 nomodeset quiet rootfstype=ext4
+	INITRD /initramfs-vanilla
