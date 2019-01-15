@@ -37,7 +37,7 @@ docker run --rm --privileged multiarch/qemu-user-static:register --reset
 support matrix
 
 |Distros|arch                               |desktop    |branch           |devices                     |
-|-------|-----------------------------------|-----------|----------------------------------------------|
+|-------|-----------------------------------|-----------|-----------------|----------------------------|
 |alpine |armhf, armv7, aarch64, x86, x86_64 |base, xfce4|v3.8, v3.9, edge |rpi, s905, generic          |
 |debian |armhf, arm64, i386, amd64          |base, pixel|stretch          |WIP(s905 not add kernel yet)|
 
