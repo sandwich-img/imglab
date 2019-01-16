@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -xe
+set -e
 
 /etc/init.d/dbus start
 apt-get install -y ubuntu-mate-core

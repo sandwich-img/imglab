@@ -1,0 +1,24 @@
+#!/bin/sh 
+set -x
+ROOT_DEV=$(findmnt / -o source -n)
+ROOT_START=$(fdisk -l $(echo "$ROOT_DEV" | sed -E 's/p?2$//') | grep "$ROOT_DEV" | awk '{ print $2 }')
+cat > /tmp/fdisk.cmd <<-EOF
+	d
+	2
+	
+	n
+	p
+	2
+	${ROOT_START}
+	
+	w
+	EOF
+fdisk "$(echo "$ROOT_DEV" | sed -E 's/p?2$//')" < /tmp/fdisk.cmd
+rm -f /tmp/fdisk.cmd
+partprobe
+resize2fs "$ROOT_DEV"
+mv /etc/hostname.new /etc/hostname
+mv /etc/hosts.new /etc/hosts
+mv /firstboot /usr/local/bin/firstboot
+#update-initramfs -u -k $(find /boot/vmlinuz-* | sed 's|/boot/vmlinuz-||')
+reboot

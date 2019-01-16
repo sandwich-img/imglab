@@ -30,7 +30,7 @@ setup_debian() {
 }
 
 case $DISTRO in
-	debian | ubuntu) setup_debian;;
+	debian | ubuntu | deepin) setup_debian;;
 esac
 
 install_syslinux
