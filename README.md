@@ -1,8 +1,9 @@
 imghub, build linux img in docker way
 ===
 
-this project build raspbian style img( contain two partitions, one for /boot, another one for /, flash with dd and auto resize when firstboot )
-build with docker, for different devices build same arch and distros can share rootfs
+this project build raspbian style img with docker, for different devices build same arch and distros can share rootfs
+( the img contain two partitions, one fat for /boot, another one is ext4 for /, for arm boot size is 100MB, for x86/x86_64 is 500MB, flash with dd and auto resize when firstboot )
+
 
 ```
 
