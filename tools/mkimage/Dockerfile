@@ -9,6 +9,7 @@ ENV DISTRO=alpine \
     BRANCH=edge \
     DEVICE=generic
 
-RUN apk --update --no-cache add syslinux dosfstools e2fsprogs parted findutils util-linux tar zip
+RUN apk --update --no-cache add syslinux uboot-tools dosfstools e2fsprogs parted findutils util-linux tar zip vim
+RUN apk add --no-cache ca-certificates wget && update-ca-certificates
 
 CMD ["/mkimage"]

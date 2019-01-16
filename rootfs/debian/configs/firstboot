@@ -20,5 +20,5 @@ resize2fs "$ROOT_DEV"
 mv /etc/hostname.new /etc/hostname
 mv /etc/hosts.new /etc/hosts
 mv /firstboot /usr/local/bin/firstboot
-update-initramfs -u -k $(find /boot/vmlinuz-* | sed 's|/boot/vmlinuz-||')
+#update-initramfs -u -k $(find /boot/vmlinuz-* | sed 's|/boot/vmlinuz-||')
 reboot

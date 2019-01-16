@@ -1,9 +1,11 @@
 #!/bin/sh
 
-set -e
+set -xe
 
-OUTPUT_IMG=target/$DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.img
-IMG_SIZE=$(( `du target/$DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.tar | awk '{print $1}'` * 2 * 1200 ))
+cd target
+
+OUTPUT_IMG=$DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.img
+IMG_SIZE=$(( `du $DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.tar | awk '{print $1}'` * 2 * 1200 ))
 
 case "$ARCH" in
 	arm* | aarch64 ) BOOT_SIZE=100MB;;
@@ -35,16 +37,16 @@ rm -f fdisk.cmd
 
 do_format() {
 	mkfs.vfat -n boot -v "$BOOT_DEV" > /dev/null
-	mkfs.ext4 -L rootfs -O "$ROOT_FEATURES" "$ROOT_DEV" > /dev/null
-	mkdir -p target/mnt
-	mount "$ROOT_DEV" target/mnt
-	mkdir -p target/mnt/boot
-	mount "$BOOT_DEV" target/mnt/boot
+	mkfs.ext4 -L rootfs "$ROOT_DEV" > /dev/null
+	mkdir -p mnt
+	mount "$ROOT_DEV" mnt
+	mkdir -p mnt/boot
+	mount "$BOOT_DEV" mnt/boot
 }
 
 umounts() {
-	umount target/mnt/boot
-	umount target/mnt
+	umount mnt/boot
+	umount mnt
 	losetup -d "$ROOT_DEV"
 	losetup -d "$BOOT_DEV"
 }
@@ -67,31 +69,33 @@ ROOT_LENGTH=$(echo "$PARTED_OUT" | grep -e '^ 2'| xargs echo -n \
 BOOT_DEV=$(losetup --show -f -o "${BOOT_OFFSET}" --sizelimit "${BOOT_LENGTH}" "$OUTPUT_IMG")
 ROOT_DEV=$(losetup --show -f -o "${ROOT_OFFSET}" --sizelimit "${ROOT_LENGTH}" "$OUTPUT_IMG")
 
-BOOT_UUID=$(blkid ${BOOT_DEV} | cut -f 2 -d '"')
-ROOT_UUID=$(blkid ${ROOT_DEV} | cut -f 2 -d '"')
+IMGID="$(dd if="$OUTPUT_IMG" skip=440 bs=1 count=4 2>/dev/null | xxd -e | cut -f 2 -d' ')"
 
-ROOT_FEATURES="^huge_file"
-for FEATURE in metadata_csum 64bit; do
-	if grep -q "$FEATURE" /etc/mke2fs.conf; then
-	    ROOT_FEATURES="^$FEATURE,$ROOT_FEATURES"
-	fi
-done
+BOOT_PARTUUID="${IMGID}-01"
+ROOT_PARTUUID="${IMGID}-02"
+
+#ROOT_FEATURES="^huge_file"
+#for FEATURE in metadata_csum 64bit; do
+#	if grep -q "$FEATURE" /etc/mke2fs.conf; then
+#	    ROOT_FEATURES="^$FEATURE,$ROOT_FEATURES"
+#	fi
+#done
 
 do_format
 
-tar xf target/$DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.tar -C target/mnt || true > /dev/null
+tar xf $DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.tar -C mnt || true > /dev/null
 
-BOOT_DEV=${BOOT_DEV} ./bootloader/install_bootloader_$DEVICE.sh
+BOOT_DEV=${BOOT_DEV} ROOT_PARTUUID=${ROOT_PARTUUID} ../bootloader/install_bootloader_$DEVICE.sh
 
-rm -rf target/mnt/Dockerfile* target/mnt/.docker* target/mnt/usr/bin/qemu* target/mnt/scripts target/mnt/configs
+rm -rf mnt/Dockerfile* mnt/.docker* mnt/usr/bin/qemu* mnt/scripts mnt/configs
 
 sync
 
 umounts
 
-zip -r -j target/$DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.zip target/$DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.img
+zip $DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.zip $DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.img
 
-rm -f target/$DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.tar target/$DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.img
+rm -f $DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.tar $DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.img
 
 cat >&2 <<-EOF
 	---

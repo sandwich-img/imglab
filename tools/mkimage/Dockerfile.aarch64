@@ -3,15 +3,13 @@ FROM sandwichimg/alpine:aarch64-edge
 COPY mkimage /mkimage
 COPY repositories /etc/apk/repositories
 
-ARG DISTRO=alpine
-ARG ARCH=aarch64
-ARG DEVICE=rpi
+ENV DISTRO=alpine \
+    DESKTOP=base \
+    ARCH=aarch64 \
+    BRANCH=edge \
+    DEVICE=rpi
 
-ENV DISTRO=$DISTRO \
-    ARCH=$ARCH \
-    DEVICE=$DEVICE
-
-RUN apk --update --no-cache add uboot-tools dosfstools e2fsprogs parted findutils util-linux tar zip
+RUN apk --update --no-cache add uboot-tools dosfstools e2fsprogs parted findutils util-linux tar zip vim
 RUN apk add --no-cache ca-certificates wget && update-ca-certificates
 
 CMD ["/mkimage"]
