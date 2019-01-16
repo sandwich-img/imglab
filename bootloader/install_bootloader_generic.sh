@@ -11,7 +11,7 @@ cp files/$DEVICE/syslinux.cfg.$DISTRO $DEST/boot/syslinux.cfg
 cd $DEST
 ls boot
 
-install_syslinux (){	
+install_syslinux (){
 	dd bs=440 count=1 conv=fsync,notrunc if=/usr/share/syslinux/mbr.bin of=../$DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.img
 	extlinux --install boot
 
@@ -30,7 +30,7 @@ setup_debian() {
 }
 
 case $DISTRO in
-	debian) setup_debian;;
+	debian | ubuntu) setup_debian;;
 esac
 
 install_syslinux
