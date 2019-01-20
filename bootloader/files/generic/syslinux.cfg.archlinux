@@ -1,0 +1,8 @@
+PROMPT 1
+TIMEOUT 3
+DEFAULT archlinux
+
+LABEL archlinux
+	LINUX /vmlinuz-linux
+	APPEND root=LABEL=rootfs rw rootfstype=ext4
+	INITRD /initramfs-linux.img

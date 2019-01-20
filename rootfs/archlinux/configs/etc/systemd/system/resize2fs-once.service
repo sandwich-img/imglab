@@ -1,0 +1,15 @@
+[Unit]
+Description=Resize the root filesystem to fill partition
+DefaultDependencies=no
+Conflicts=shutdown.target
+After=systemd-remount-fs.service
+Before=systemd-sysusers.service sysinit.target shutdown.target
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/bin/resize2fs_once
+StandardOutput=tty
+StandardInput=tty
+StandardError=tty
+[Install]
+WantedBy=sysinit.target

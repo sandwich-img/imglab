@@ -58,7 +58,7 @@ apk --no-cache add $network_groups
 
 setup_openrc_service
 add_user_groups
-cp /configs/etc/NetworkManager/conf.d/networkmanager.conf /etc/NetworkManager/conf.d/networkmanager.conf
+mv /configs/etc/NetworkManager/conf.d/networkmanager.conf /etc/NetworkManager/conf.d/networkmanager.conf
 gen_wpa_supplicant_config
 gen_syslog_config
-cp /configs/etc/fstab /etc/fstab
+mv /configs/etc/fstab /etc/fstab
