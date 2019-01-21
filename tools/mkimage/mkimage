@@ -5,12 +5,14 @@ set -xe
 cd target
 
 OUTPUT_IMG=$DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.img
-IMG_SIZE=$(( `du $DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.tar | awk '{print $1}'` * 2 * 1200 ))
+#IMG_SIZE=$(( `du $DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.tar | awk '{print $1}'` * 2 * 1200 ))
 
 case "$ARCH" in
-	arm* | aarch64 ) BOOT_SIZE=100MB;;
-	* )BOOT_SIZE=500MB;;
+	arm* | aarch64 ) BOOT_SIZE=204800;;
+	* )BOOT_SIZE=1024000;;
 esac
+
+IMG_SIZE=$(( (`du $DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.tar | awk '{print $1}'` + ${BOOT_SIZE} + 800) * 1024 ))
 
 gen_image() {
 	fallocate -l $IMG_SIZE "$OUTPUT_IMG"

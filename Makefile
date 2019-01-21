@@ -6,8 +6,8 @@ rootfs:
 kernel: rootfs
 	./scripts/kernel.sh
 
-export:
+export: kernel
 	./scripts/export.sh
 
-image: kernel export
+image: export
 	./scripts/mkimage.sh

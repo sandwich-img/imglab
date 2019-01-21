@@ -47,3 +47,4 @@ ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime
 
 mv /configs/etc/systemd/system/resize2fs-once.service /etc/systemd/system/resize2fs-once.service
 mv /configs/usr/local/bin/resize2fs_once /usr/local/bin/resize2fs_once
+systemctl enable resize2fs-once

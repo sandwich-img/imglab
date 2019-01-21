@@ -18,7 +18,7 @@ aur_install_packages() {
 
 ARCH=$(uname -m)
 case $ARCH in
-	x86_64) . /scripts/install_drivers.sh && install_drivers_x86_64;;
+	x86_64) . /scripts/install_drivers.sh && install_drivers_x86_64 && config_touchpad;;
 esac
 
 pacman -S --noconfirm base-devel

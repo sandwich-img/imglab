@@ -25,7 +25,7 @@ deps: `make`, `docker`
 
 > support build on x86_64 and arm, not support x86
 
-run(as root):
+run:
 
 ```
 DISTRO=alpine DESKTOP=base ARCH=aarch64 BRANCH=edge DEVICE=rpi make image
@@ -39,12 +39,13 @@ docker run --rm --privileged multiarch/qemu-user-static:register --reset
 
 support matrix
 
-|Distros|arch                               |desktop     |branch           |devices                     |
-|-------|-----------------------------------|------------|-----------------|----------------------------|
-|alpine |armhf, armv7, aarch64, x86, x86_64 |base, xfce4 |v3.8, v3.9, edge |rpi, s905, generic          |
-|debian |armhf, arm64, i386, amd64          |base, pixel |stretch          |WIP(s905 not add kernel yet)|
-|deepin |i386, amd64                        |base, deepin|panda            |generic                     |
-|ubuntu |armhf, arm64, i386, amd64          |base, mate  |bionic           |generic                     |
+|Distros  |arch                               |desktop     |branch           |devices                     |
+|---------|-----------------------------------|------------|-----------------|----------------------------|
+|alpine   |armhf, armv7, aarch64, x86, x86_64 |base, xfce4 |v3.8, v3.9, edge |rpi, s905, generic          |
+|archlinux|aarch64, x86_64                    |base, xfce4 |rolling          |generic                     |
+|debian   |armhf, arm64, i386, amd64          |base, pixel |stretch          |WIP(s905 not add kernel yet)|
+|deepin   |i386, amd64                        |base, deepin|panda            |generic                     |
+|ubuntu   |armhf, arm64, i386, amd64          |base, mate  |bionic           |generic                     |
 
 > rpi debian is broken now
 > deepin desktop only support amd64 
