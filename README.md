@@ -23,7 +23,9 @@ this project build raspbian style img with docker, for different devices build s
 
 deps: `make`, `docker`
 
-> support build on x86_64 and arm, not support x86
+> support build host: x86_64 and arm, not support x86
+
+> support target: arm, x86, x86_64
 
 run:
 
