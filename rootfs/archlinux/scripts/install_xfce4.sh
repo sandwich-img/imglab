@@ -19,9 +19,10 @@ aur_install_packages() {
 ARCH=$(uname -m)
 case $ARCH in
 	x86_64) . /scripts/install_drivers.sh && install_drivers_x86_64 && config_touchpad;;
+	*) . /scripts/install_drivers.sh && install_drivers_arm;;
 esac
 
-pacman -S --noconfirm base-devel
+#pacman -S --noconfirm base-devel
 
 install_packer
 
@@ -34,7 +35,12 @@ pacman -S --noconfirm xorg-server xorg-xrefresh xfce4 xfce4-goodies \
 systemctl disable dhcpcd
 
 pacman -S --noconfirm sddm
-strip --remove-section=.note.ABI-tag /usr/lib64/libQt5Core.so.5
+
+case $ARCH in
+	x86_64) strip --remove-section=.note.ABI-tag /usr/lib64/libQt5Core.so.5;;
+	*) strip --remove-section=.note.ABI-tag /usr/lib/libQt5Core.so.5;;
+esac
+
 sddm --example-config > /etc/sddm.conf
 sed -i "s/^User=/User=${USER}/" /etc/sddm.conf
 sed -i "s/^Session=/Session=xfce.desktop/" /etc/sddm.conf

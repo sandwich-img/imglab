@@ -7,6 +7,10 @@ install_drivers_x86_64() {
 	pacman -S --noconfirm acpi xf86-input-libinput
 }
 
+install_drivers_arm() {
+	pacman -S --noconfirm xf86-video-fbdev
+}
+
 config_touchpad() {
 	mkdir -p /etc/X11/xorg.conf.d
 	cat > /etc/X11/xorg.conf.d/40-libinput.conf <<'EOF'

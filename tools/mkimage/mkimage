@@ -12,7 +12,7 @@ case "$ARCH" in
 	* )BOOT_SIZE=1024000;;
 esac
 
-IMG_SIZE=$(( (`du $DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.tar | awk '{print $1}'` + ${BOOT_SIZE} + 800) * 1024 ))
+IMG_SIZE=$(( (`du $DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.tar | awk '{print $1}'` + ${BOOT_SIZE} + 1024000) * 1024 ))
 
 gen_image() {
 	fallocate -l $IMG_SIZE "$OUTPUT_IMG"
