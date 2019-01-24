@@ -1,1 +1,1 @@
-root=LABEL=rootfs rootfstype=ext4 dwc_otg.lpm_enable=0 console=serial0,115200 console=tty1 elevator=deadline fsck.repair=yes rootwait quiet
+root=LABEL=rootfs rootfstype=ext4 dwc_otg.lpm_enable=0 console=serial0,115200 console=tty1 elevator=deadline fsck.repair=yes rootwait
