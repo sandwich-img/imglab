@@ -39,6 +39,12 @@ to build arm img on x86_64, need configure binfmt-support on the host
 docker run --rm --privileged multiarch/qemu-user-static:register --reset
 ```
 
+for archlinux arm need:
+
+```
+docker run --rm --privileged multiarch/qemu-user-static:register --reset --credential yes
+```
+
 support matrix
 
 |Distros  |arch                               |desktop     |branch           |devices                     |
