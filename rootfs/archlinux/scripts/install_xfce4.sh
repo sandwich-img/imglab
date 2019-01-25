@@ -2,14 +2,6 @@
 
 set -xe
 
-install_packer() {
-	pacman -S --noconfirm wget
-
-        su ${USER} sh -c 'cd /tmp && \
-        wget https://github.com/archlinuxarm/PKGBUILDs/raw/a1ad4045699093b1cf4911b93cbf8830ee972639/aur/packer/PKGBUILD && \
-        makepkg -si --noconfirm'
-}
-
 aur_install_packages() {
 	su ${USER} <<-EOF
 	packer -S --noconfirm $@
@@ -21,10 +13,6 @@ case $ARCH in
 	x86_64) . /scripts/install_drivers.sh && install_drivers_x86_64 && config_touchpad;;
 	*) . /scripts/install_drivers.sh && install_drivers_arm;;
 esac
-
-#pacman -S --noconfirm base-devel
-
-install_packer
 
 pacman -S --noconfirm xorg-server xorg-xrefresh xfce4 xfce4-goodies \
 				xarchiver gvfs gvfs-smb sshfs \
