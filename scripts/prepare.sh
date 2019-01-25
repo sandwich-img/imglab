@@ -12,7 +12,7 @@ normalize_arch() {
 }
 
 if [ "$HOST_ARCH" = "x86_64" ] && [ $(normalize_arch $ARCH) != $(normalize_arch $HOST_ARCH) ]; then
-	docker run --rm --privileged multiarch/qemu-user-static:register --reset --credential yes
+	docker run --rm --privileged multiarch/qemu-user-static:register --reset --credential yes;
+	touch prepare
 fi
 
-touch prepare
