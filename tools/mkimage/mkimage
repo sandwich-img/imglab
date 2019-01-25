@@ -5,6 +5,9 @@ set -xe
 cd target
 
 OUTPUT_IMG=$DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.img
+
+if [ -f "$OUTPUT_IMG" ]; then rm -f "$OUTPUT_IMG" ; fi
+
 #IMG_SIZE=$(( `du $DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.tar | awk '{print $1}'` * 2 * 1200 ))
 
 case "$ARCH" in

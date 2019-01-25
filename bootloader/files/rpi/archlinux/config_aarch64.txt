@@ -3,8 +3,6 @@ gpu_mem=64
 arm_control=0x200
 kernel=kernel8.img
 initramfs initramfs-linux.img followkernel
-# to take advantage of your high speed sd card
-dtparam=sd_overclock=100
 # use drm backend
 #dtoverlay=vc4-fkms-v3d
 # have a properly sized image

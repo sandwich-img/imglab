@@ -50,7 +50,10 @@ support matrix
 |ubuntu   |armhf, arm64, i386, amd64          |base, mate  |bionic           |generic                     |
 
 > rpi debian is broken now
+
 > deepin desktop only support amd64 
+
+> rpi archlinux xfce4 is broken
 
 more distros will add later
 
