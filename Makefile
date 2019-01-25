@@ -1,5 +1,8 @@
+prepare:
+	./scripts/prepare.sh
+
 .PHONY: rootfs
-rootfs:
+rootfs: prepare
 	./scripts/rootfs.sh
 
 .PHONY: kernel

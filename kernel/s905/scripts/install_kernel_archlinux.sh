@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -xe
+set -e
 
 pacman -S --noconfirm wget firmware-raspberrypi
 

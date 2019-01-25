@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -xe
+set -e
 
 setup_ubuntu_mirrors() {
 	cat > /etc/apt/sources.list <<EOF

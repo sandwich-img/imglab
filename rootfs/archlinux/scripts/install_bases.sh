@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -xe
+set -e
 
 gen_initcpio() {
 	sed -i 's|MODULES=()|MODULES=(ext4)|' /etc/mkinitcpio.conf

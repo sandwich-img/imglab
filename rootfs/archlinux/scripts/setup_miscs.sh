@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -xe
+set -e
 
 setup_arch_mirrors() {
 	echo "Server = ${ARCH_MIRROR}/\$repo/os/\$arch" > /etc/pacman.d/mirrorlist

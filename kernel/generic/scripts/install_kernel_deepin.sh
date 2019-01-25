@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -xe
+set -e
 
 ARCH=$(dpkg --print-architecture)
 
