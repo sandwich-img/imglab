@@ -32,4 +32,5 @@ apk --update --no-cache add tzdata
 ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime
 
 mv /configs/etc/local.d/firstboot.start /etc/local.d/firstboot.start
+mv /configs/etc/conf.d/local /etc/conf.d/local
 mv /configs/etc/motd /etc/motd
