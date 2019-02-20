@@ -33,18 +33,6 @@ run:
 DISTRO=alpine DESKTOP=base ARCH=aarch64 BRANCH=edge DEVICE=rpi make image
 ```
 
-to build arm img on x86_64, need configure binfmt-support on the host
-
-```
-docker run --rm --privileged multiarch/qemu-user-static:register --reset
-```
-
-for archlinux arm need:
-
-```
-docker run --rm --privileged multiarch/qemu-user-static:register --reset --credential yes
-```
-
 support matrix
 
 |Distros  |arch                               |desktop     |branch           |devices                     |
@@ -55,11 +43,12 @@ support matrix
 |deepin   |i386, amd64                        |base, deepin|panda            |generic                     |
 |ubuntu   |armhf, arm64, i386, amd64          |base, mate  |bionic           |generic                     |
 
-> rpi debian is broken now
 
 > deepin desktop only support amd64 
 
 > rpi archlinux xfce4 is broken
+
+> alpine xfce4 only work on v3.8 branch
 
 more distros will add later
 
