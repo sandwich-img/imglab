@@ -14,7 +14,7 @@ case "$ARCH" in
 esac
 
 case "$DISTRO" in
-	archlinux) PADDING_SIZE=1024000;;
+	archlinux | debian) PADDING_SIZE=1024000;;
 	*) PADDING_SIZE=0;;
 esac
 
