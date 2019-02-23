@@ -38,10 +38,10 @@ support matrix
 |Distros  |arch                               |desktop     |branch           |devices                     |
 |---------|-----------------------------------|------------|-----------------|----------------------------|
 |alpine   |armhf, armv7, aarch64, x86, x86_64 |base, xfce4 |v3.8, v3.9, edge |rpi, s905, generic          |
-|archlinux|aarch64, x86_64                    |base, xfce4 |rolling          |rpi, s905, generic                     |
-|debian   |armhf, arm64, i386, amd64          |base, pixel |stretch          |WIP(s905 not add kernel yet)|
+|archlinux|aarch64, x86_64                    |base, xfce4 |rolling          |rpi, s905, generic          |
+|debian   |armhf, arm64, i386, amd64          |base, pixel |stretch          |rpi, s905, generic          |
 |deepin   |i386, amd64                        |base, deepin|panda            |generic                     |
-|ubuntu   |armhf, arm64, i386, amd64          |base, mate  |bionic           |generic                     |
+|ubuntu   |armhf, arm64, i386, amd64          |base, mate  |bionic           |rpi, s905, generic          |
 
 
 > deepin desktop only support amd64 
