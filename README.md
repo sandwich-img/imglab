@@ -1,8 +1,16 @@
 imghub, build linux img in docker way
 ===
 
-this project build raspbian style img with docker, for different devices build same arch and distros can share rootfs
-( the img contain two partitions, one fat for /boot, another one is ext4 for /, for arm boot size is 100MB, for x86/x86_64 is 500MB, flash with dd and auto resize when firstboot )
+this project build raspbian style img with docker
+
+the img contain two partitions
+
+- one FAT for /boot
+- one EXT4 for /
+
+> for arm boot size is 100MB, for x86/x86_64 is 500MB
+
+flash with dd and auto resize when firstboot
 
 
 ```
@@ -44,11 +52,13 @@ support matrix
 |ubuntu   |armhf, arm64, i386, amd64          |base, mate  |bionic           |rpi, s905, generic          |
 
 
-> deepin desktop only support amd64 
+> ⚠ deepin desktop only support amd64 
 
-> rpi archlinux xfce4 is broken
 
-> alpine xfce4 only work on v3.8 branch
+> ⚠ alpine xfce4 only work on v3.8 branch
+
+
+> ⛔ rpi archlinux xfce4 is broken
 
 more distros will add later
 
