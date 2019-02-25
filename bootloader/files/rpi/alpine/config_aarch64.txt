@@ -10,6 +10,7 @@ device_tree_end=0x8000
 #enable_uart=1
 disable_overscan=1
 dtparam=sd_overclock=100
+dtoverlay=vc4-fkms-v3d
 # for sound over HDMI
 hdmi_drive=2
 # Enable audio (loads snd_bcm2835)
