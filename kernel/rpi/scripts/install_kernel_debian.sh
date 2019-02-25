@@ -6,11 +6,11 @@ get_rpi_firmware() {
 	mkdir -p /lib/firmware/brcm
 
 	for wifi_fw in 43430-sdio.bin 43430-sdio.txt 43455-sdio.bin 43455-sdio.clm_blob 43455-sdio.txt ; do
-		wget -qP /lib/firmware/brcm https://github.com/RPi-Distro/firmware-nonfree/raw/master/brcm/brcmfmac${wifi_fw} 
+		wget -q -P /lib/firmware/brcm https://github.com/RPi-Distro/firmware-nonfree/raw/master/brcm/brcmfmac${wifi_fw} 
 	done
 
 	#for bt_fw in BCM43430A1.hcd BCM4345C0.hcd ; do
-	#	wget -qP /lib/firmware/brcm https://github.com/RPi-Distro/bluez-firmware/raw/master/broadcom/${bt_fw}
+	#	wget -q -P /lib/firmware/brcm https://github.com/RPi-Distro/bluez-firmware/raw/master/broadcom/${bt_fw}
 	#done
 }
 
