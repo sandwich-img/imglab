@@ -27,9 +27,10 @@ install_kernel_armhf() {
 }
 
 install_kernel_arm64() {
-	apt-get update && apt-get install -y ca-certificates xz-utils
-	KERVER=4.19.23.20190223
-	wget https://github.com/sakaki-/bcmrpi3-kernel/releases/download/$KERVER/bcmrpi3-kernel-$KERVER.tar.xz -qO- | tar -C / -xJf -
+	apt-get update && apt-get install -y ca-certificates xz-utils curl
+	URL=$(curl -s https://api.github.com/repos/sakaki-/bcmrpi3-kernel/releases/latest | grep 'browser_' \
+		| cut -d\" -f4)
+	wget $URL -qO- | tar -C / -xJf -
 	rm -rf /var/lib/apt/lists/* /tmp/*
 }
 
