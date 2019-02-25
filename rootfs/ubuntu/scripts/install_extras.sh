@@ -2,4 +2,4 @@
 
 set -e
 
-apt-get install -y ssh parted htop net-tools haveged
+apt-get install -y ssh parted htop net-tools haveged wget ca-certificates
