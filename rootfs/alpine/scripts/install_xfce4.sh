@@ -13,7 +13,7 @@ curl https://img2.goodfon.com/original/2048x1820/3/b6/android-5-0-lollipop-mater
 	--output /usr/share/wallpapers/android-5-0-lollipop-material-5355.jpg
 
 su $USER sh -c "mkdir -p /home/${USER}/.config && \
-wget https://github.com/yangxuan8282/dotfiles/archive/master.tar.gz -O- | \
+wget https://github.com/yangxuan8282/dotfiles/archive/master.tar.gz -qO- | \
 	tar -C /home/${USER}/.config -xzf - --strip=2 dotfiles-master/alpine-config"
 
 sed -i "s|/home/pi|/home/$USER|" /home/${USER}/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml

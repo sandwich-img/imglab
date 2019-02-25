@@ -6,11 +6,11 @@ get_rpi_firmware() {
 	mkdir -p /lib/firmware/brcm
 
 	for wifi_fw in 43430-sdio.bin 43430-sdio.txt 43455-sdio.bin 43455-sdio.clm_blob 43455-sdio.txt ; do
-		wget -P /lib/firmware/brcm https://github.com/RPi-Distro/firmware-nonfree/raw/master/brcm/brcmfmac${wifi_fw} 
+		wget -qP /lib/firmware/brcm https://github.com/RPi-Distro/firmware-nonfree/raw/master/brcm/brcmfmac${wifi_fw} 
 	done
 
 	#for bt_fw in BCM43430A1.hcd BCM4345C0.hcd ; do
-	#	wget -P /lib/firmware/brcm https://github.com/RPi-Distro/bluez-firmware/raw/master/broadcom/${bt_fw}
+	#	wget -qP /lib/firmware/brcm https://github.com/RPi-Distro/bluez-firmware/raw/master/broadcom/${bt_fw}
 	#done
 }
 
@@ -29,7 +29,7 @@ install_kernel_armhf() {
 install_kernel_arm64() {
 	apt-get update && apt-get install -y ca-certificates xz-utils
 	KERVER=4.14.93.20190115
-	wget https://github.com/sakaki-/bcmrpi3-kernel/releases/download/$KERVER/bcmrpi3-kernel-$KERVER.tar.xz -O- | tar -C / -xJf -
+	wget https://github.com/sakaki-/bcmrpi3-kernel/releases/download/$KERVER/bcmrpi3-kernel-$KERVER.tar.xz -qO- | tar -C / -xJf -
 	rm -rf /var/lib/apt/lists/* /tmp/*
 }
 
