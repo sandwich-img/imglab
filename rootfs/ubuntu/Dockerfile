@@ -18,7 +18,7 @@ ENV USER=ubuntu \
     LC_ALL="en_US.UTF-8" \
     UBUNTU_MIRROR=http://archive.ubuntu.com/ubuntu/ \
     PORTS_MIRROR=http://ports.ubuntu.com/ \
-    UBUNTU_BRANCH=$BRANCH \
+    DEBIAN_BRANCH=$BRANCH \
     DEBIAN_FRONTEND=noninteractive \
     DESKTOP=$DESKTOP
 

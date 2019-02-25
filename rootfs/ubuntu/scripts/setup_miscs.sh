@@ -4,27 +4,27 @@ set -e
 
 setup_ubuntu_mirrors() {
 	cat > /etc/apt/sources.list <<EOF
-deb ${UBUNTU_MIRROR} ${UBUNTU_BRANCH} main restricted universe multiverse
-deb ${UBUNTU_MIRROR} ${UBUNTU_BRANCH}-updates main restricted universe multiverse
-deb ${UBUNTU_MIRROR} ${UBUNTU_BRANCH}-backports main restricted universe multiverse
-deb ${UBUNTU_MIRROR} ${UBUNTU_BRANCH}-security main restricted universe multiverse
-#deb-src ${UBUNTU_MIRROR} ${UBUNTU_BRANCH} main restricted universe multiverse
-#deb-src ${UBUNTU_MIRROR} ${UBUNTU_BRANCH}-updates main restricted universe multiverse
-#deb-src ${UBUNTU_MIRROR} ${UBUNTU_BRANCH}-backports main restricted universe multiverse
-#deb-src ${UBUNTU_MIRROR} ${UBUNTU_BRANCH}-security main restricted universe multiverse
+deb ${UBUNTU_MIRROR} ${DEBIAN_BRANCH} main restricted universe multiverse
+deb ${UBUNTU_MIRROR} ${DEBIAN_BRANCH}-updates main restricted universe multiverse
+deb ${UBUNTU_MIRROR} ${DEBIAN_BRANCH}-backports main restricted universe multiverse
+deb ${UBUNTU_MIRROR} ${DEBIAN_BRANCH}-security main restricted universe multiverse
+#deb-src ${UBUNTU_MIRROR} ${DEBIAN_BRANCH} main restricted universe multiverse
+#deb-src ${UBUNTU_MIRROR} ${DEBIAN_BRANCH}-updates main restricted universe multiverse
+#deb-src ${UBUNTU_MIRROR} ${DEBIAN_BRANCH}-backports main restricted universe multiverse
+#deb-src ${UBUNTU_MIRROR} ${DEBIAN_BRANCH}-security main restricted universe multiverse
 EOF
 }
 
 setup_ports_mirrors() {
 	cat > /etc/apt/sources.list <<EOF
-deb ${PORTS_MIRROR} ${UBUNTU_BRANCH} main restricted universe multiverse
-deb ${PORTS_MIRROR} ${UBUNTU_BRANCH}-updates main restricted universe multiverse
-deb ${PORTS_MIRROR} ${UBUNTU_BRANCH}-backports main restricted universe multiverse
-deb ${PORTS_MIRROR} ${UBUNTU_BRANCH}-security main restricted universe multiverse
-#deb-src ${PORTS_MIRROR} ${UBUNTU_BRANCH} main restricted universe multiverse
-#deb-src ${PORTS_MIRROR} ${UBUNTU_BRANCH}-updates main restricted universe multiverse
-#deb-src ${PORTS_MIRROR} ${UBUNTU_BRANCH}-backports main restricted universe multiverse
-#deb-src ${PORTS_MIRROR} ${UBUNTU_BRANCH}-security main restricted universe multiverse
+deb ${PORTS_MIRROR} ${DEBIAN_BRANCH} main restricted universe multiverse
+deb ${PORTS_MIRROR} ${DEBIAN_BRANCH}-updates main restricted universe multiverse
+deb ${PORTS_MIRROR} ${DEBIAN_BRANCH}-backports main restricted universe multiverse
+deb ${PORTS_MIRROR} ${DEBIAN_BRANCH}-security main restricted universe multiverse
+#deb-src ${PORTS_MIRROR} ${DEBIAN_BRANCH} main restricted universe multiverse
+#deb-src ${PORTS_MIRROR} ${DEBIAN_BRANCH}-updates main restricted universe multiverse
+#deb-src ${PORTS_MIRROR} ${DEBIAN_BRANCH}-backports main restricted universe multiverse
+#deb-src ${PORTS_MIRROR} ${DEBIAN_BRANCH}-security main restricted universe multiverse
 EOF
 }
 
