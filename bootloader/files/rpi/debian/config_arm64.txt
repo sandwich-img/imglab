@@ -5,3 +5,4 @@ kernel=kernel8.img
 
 dtparam=sd_overclock=100
 dtparam=audio=yes
+dtoverlay=vc4-fkms-v3d
