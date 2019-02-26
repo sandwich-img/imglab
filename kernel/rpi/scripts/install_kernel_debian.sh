@@ -17,7 +17,7 @@ get_rpi_firmware() {
 install_kernel_armhf() {
 	if [ ! -f /etc/apt/sources.list.d/raspi.list ]; then
 		apt-get update && apt-get install -y dirmngr
-		echo "deb http://archive.raspberrypi.org/debian/ "$DEBIAN_BRANCH" main ui" | tee /etc/apt/sources.list.d/raspi.list
+		echo "deb http://archive.raspberrypi.org/debian/ stretch main ui" | tee /etc/apt/sources.list.d/raspi.list
 		wget -qO - http://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add -
 		apt-get update && apt-get upgrade -y
 	fi
