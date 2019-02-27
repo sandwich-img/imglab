@@ -14,3 +14,6 @@ export: kernel
 
 image: export
 	./scripts/mkimage.sh
+
+http:
+	./scripts/http.sh
