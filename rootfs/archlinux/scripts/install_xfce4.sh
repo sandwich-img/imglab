@@ -34,10 +34,10 @@ sed -i "s/^User=/User=${USER}/" /etc/sddm.conf
 sed -i "s/^Session=/Session=xfce.desktop/" /etc/sddm.conf
 systemctl enable sddm.service
 
-aur_install_packages ttf-roboto-mono
+aur_install_packages ttf-roboto-mono paper-icon-theme
 pacman -S --noconfirm curl
-wget -q https://github.com/yangxuan8282/PKGBUILDs/raw/master/pkgs/paper-icon-theme-1.5.0-2-any.pkg.tar.xz
-pacman -U --noconfirm paper-icon-theme-1.5.0-2-any.pkg.tar.xz && rm -f paper-icon-theme-1.5.0-2-any.pkg.tar.xz
+#wget -q https://github.com/yangxuan8282/PKGBUILDs/raw/master/pkgs/paper-icon-theme-1.5.0-2-any.pkg.tar.xz
+#pacman -U --noconfirm paper-icon-theme-1.5.0-2-any.pkg.tar.xz && rm -f paper-icon-theme-1.5.0-2-any.pkg.tar.xz
 
 mkdir -p /usr/share/wallpapers
 curl https://img2.goodfon.com/original/2048x1820/3/b6/android-5-0-lollipop-material-5355.jpg \
@@ -45,3 +45,5 @@ curl https://img2.goodfon.com/original/2048x1820/3/b6/android-5-0-lollipop-mater
 su $USER sh -c "mkdir -p /home/${USER}/.config && \
 wget https://github.com/yangxuan8282/dotfiles/archive/master.tar.gz -qO- | \
 	tar -C /home/${USER}/.config -xzf - --strip=2 dotfiles-master/config"
+
+rm -rf /tmp/*
