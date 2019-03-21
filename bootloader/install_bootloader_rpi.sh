@@ -7,7 +7,7 @@ cd "$(dirname "$0")"
 DEST=../target/mnt
 
 for blobs in bootcode.bin fixup.dat start.elf ; do
-	wget -P $DEST/boot https://github.com/raspberrypi/firmware/raw/master/boot/${blobs}
+	wget -q -P $DEST/boot https://github.com/raspberrypi/firmware/raw/master/boot/${blobs}
 done
 
 cp files/rpi/$DISTRO/config_$ARCH.txt $DEST/boot/config.txt
