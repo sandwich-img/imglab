@@ -1,0 +1,5 @@
+device: rpi
+distro: alpine
+arch: armv7
+branch: v3.9
+desktop: base
