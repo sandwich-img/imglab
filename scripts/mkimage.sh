@@ -9,14 +9,14 @@ normalize_arch() {
 	esac
 }
 
-HOST_ARCH=$(uname -m)
+HOST_ARCH="$(uname -m)"
 
 BL_ARCH="$(normalize_arch $HOST_ARCH)"
 
 mkdir -p target
 #ls
 #pwd
-docker run --rm -ti --privileged -v $(pwd)/target:/target -v $(pwd)/bootloader:/bootloader \
+docker run --rm -i --privileged -v $(pwd)/target:/target -v $(pwd)/bootloader:/bootloader \
 		-v $(pwd)/tools/mkimage/mkimage:/mkimage \
 		--env DISTRO=$DISTRO \
 		--env DESKTOP=$DESKTOP \
