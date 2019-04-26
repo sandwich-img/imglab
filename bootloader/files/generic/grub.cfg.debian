@@ -1,0 +1,9 @@
+set timeout=2
+insmod all_video
+menuentry "Linux" {
+    search --no-floppy --fs-uuid --set=root BOOT_UUID
+    echo	'Loading Linux ...'
+    linux   /vmlinuz root=LABEL=rootfs rw rootfstype=ext4
+    echo	'Loading initial ramdisk ...'
+    initrd  /initrd.img
+}
