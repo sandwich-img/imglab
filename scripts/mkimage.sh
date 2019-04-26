@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e
+set -xe
 
 normalize_arch() {
 	case "$1" in
@@ -14,13 +14,14 @@ HOST_ARCH="$(uname -m)"
 BL_ARCH="$(normalize_arch $HOST_ARCH)"
 
 mkdir -p target
-#ls
-#pwd
-docker run --rm -i --privileged -v $(pwd)/target:/target -v $(pwd)/bootloader:/bootloader \
+
+docker run --rm -i --privileged -v $(pwd)/target:/target \
+		-v /boot:/boot -v /lib/modules:/lib/modules \
+		-v $(pwd)/bootloader:/bootloader \
 		-v $(pwd)/tools/mkimage/mkimage:/mkimage \
 		--env DISTRO=$DISTRO \
 		--env DESKTOP=$DESKTOP \
 		--env ARCH=$ARCH \
 		--env BRANCH=$BRANCH \
 		--env DEVICE=$DEVICE \
-		sandwichimg/mkimage:$BL_ARCH
+		sandwichimg/mkimage:guestfs-$BL_ARCH /mkimage
