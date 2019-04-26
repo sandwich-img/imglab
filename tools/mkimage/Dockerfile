@@ -1,15 +1,8 @@
-FROM sandwichimg/alpine:x86_64-edge
+FROM debian:stretch-slim
 
-COPY mkimage /mkimage
-COPY repositories /etc/apk/repositories
+ENV DEBIAN_FRONTEND=noninteractive
 
-ENV DISTRO=alpine \
-    DESKTOP=base \
-    ARCH=x86_64 \
-    BRANCH=edge \
-    DEVICE=generic
-
-RUN apk --update --no-cache add syslinux uboot-tools dosfstools e2fsprogs parted findutils util-linux tar zip vim
-RUN apk add --no-cache ca-certificates wget && update-ca-certificates
-
-CMD ["/mkimage"]
+RUN set -xe \
+  && apt-get update \
+  && apt-get install --no-install-recommends -y syslinux-common syslinux-efi libguestfs-tools zip wget xxd u-boot-tools \
+  && rm -rf /var/lib/apt/lists/*

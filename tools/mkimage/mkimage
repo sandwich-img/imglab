@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e
+set -xe
 
 cd target
 
@@ -13,93 +13,45 @@ case "$ARCH" in
 	* )BOOT_SIZE=1024000;;
 esac
 
-case "$DISTRO" in
-	archlinux | debian | ubuntu) PADDING_SIZE=1024000;;
-	*) PADDING_SIZE=0;;
-esac
+#case "$DISTRO" in
+#	archlinux | debian | ubuntu) PADDING_SIZE=1024000;;
+#	*) PADDING_SIZE=0;;
+#esac
 
-IMG_SIZE=$(( (`du $DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.tar | awk '{print $1}'` + ${BOOT_SIZE} + ${PADDING_SIZE}) * 1024 ))
+IMG_SIZE=$(( (`du $DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.tar | awk '{print $1}'` + ${BOOT_SIZE} + 409600) * 1024 ))
 
-gen_image() {
-	fallocate -l $IMG_SIZE "$OUTPUT_IMG"
-cat > fdisk.cmd <<-EOF
-	o
-	n
-	p
-	1
+# mkimage
+guestfish -N "$OUTPUT_IMG"=disk:${IMG_SIZE} -- \
+	part-init /dev/sda mbr : \
+	part-add /dev/sda p 8192 ${BOOT_SIZE} : \
+	part-add /dev/sda p $((${BOOT_SIZE}+2048)) -1 : \
+	part-set-mbr-id /dev/sda 1 0xc : \
+	part-set-bootable /dev/sda 1 true : \
+	mkfs ext4 /dev/sda2 label:rootfs : \
+	mkfs vfat /dev/sda1 label:boot
 	
-	+${BOOT_SIZE}
-	t
-	c
-	a
-	n
-	p
-	2
-	
-	
-	w
-EOF
-fdisk "$OUTPUT_IMG" < fdisk.cmd
-rm -f fdisk.cmd
-}
-
-do_format() {
-	mkfs.vfat -n boot -v "$BOOT_DEV" > /dev/null
-	mkfs.ext4 -L rootfs "$ROOT_DEV" > /dev/null
-	mkdir -p mnt
-	mount "$ROOT_DEV" mnt
-	mkdir -p mnt/boot
-	mount "$BOOT_DEV" mnt/boot
-}
-
-umounts() {
-	umount mnt/boot
-	umount mnt
-	losetup -d "$ROOT_DEV"
-	losetup -d "$BOOT_DEV"
-}
-
-gen_image
-
-#take from raspbian pi-gen
-
-PARTED_OUT=$(parted -s "$OUTPUT_IMG" unit b print)
-BOOT_OFFSET=$(echo "$PARTED_OUT" | grep -e '^ 1'| xargs echo -n \
-| cut -d" " -f 2 | tr -d B)
-BOOT_LENGTH=$(echo "$PARTED_OUT" | grep -e '^ 1'| xargs echo -n \
-| cut -d" " -f 4 | tr -d B)
-
-ROOT_OFFSET=$(echo "$PARTED_OUT" | grep -e '^ 2'| xargs echo -n \
-| cut -d" " -f 2 | tr -d B)
-ROOT_LENGTH=$(echo "$PARTED_OUT" | grep -e '^ 2'| xargs echo -n \
-| cut -d" " -f 4 | tr -d B)
-
-BOOT_DEV=$(losetup --show -f -o "${BOOT_OFFSET}" --sizelimit "${BOOT_LENGTH}" "$OUTPUT_IMG")
-ROOT_DEV=$(losetup --show -f -o "${ROOT_OFFSET}" --sizelimit "${ROOT_LENGTH}" "$OUTPUT_IMG")
+BOOT_UUID=$(guestfish -a "$OUTPUT_IMG" -- run : vfs-uuid /dev/sda1)
 
 IMGID="$(dd if="$OUTPUT_IMG" skip=440 bs=1 count=4 2>/dev/null | xxd -e | cut -f 2 -d' ')"
 
 BOOT_PARTUUID="${IMGID}-01"
 ROOT_PARTUUID="${IMGID}-02"
+	
+# extract
 
-#ROOT_FEATURES="^huge_file"
-#for FEATURE in metadata_csum 64bit; do
-#	if grep -q "$FEATURE" /etc/mke2fs.conf; then
-#	    ROOT_FEATURES="^$FEATURE,$ROOT_FEATURES"
-#	fi
-#done
-
-do_format
-
-tar xf $DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.tar -C mnt || true > /dev/null
-
-BOOT_DEV=${BOOT_DEV} ROOT_PARTUUID=${ROOT_PARTUUID} ../bootloader/install_bootloader_$DEVICE.sh
-
-rm -rf mnt/Dockerfile* mnt/.docker* mnt/usr/bin/qemu* mnt/scripts mnt/configs
-
-sync
-
-umounts
+guestfish -a "$OUTPUT_IMG" -- \
+	run : \
+	mount /dev/sda2 / : \
+	mkdir /boot : \
+	mount /dev/sda1 /boot : \
+	-tar-in $DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.tar / : \
+	glob rm-rf "/Dockerfile*" : \
+	glob rm-rf "/.docker*" : \
+	glob rm-rf "/usr/bin/qemu*" : \
+	rm-rf /scripts : \
+	rm-rf /configs
+	
+BOOT_UUID=${BOOT_UUID} OUTPUT_IMG=${OUTPUT_IMG} ROOT_PARTUUID=${ROOT_PARTUUID} ../bootloader/install_bootloader_$DEVICE.sh
 
 zip $DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.zip $DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.img
 
