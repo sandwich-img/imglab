@@ -4,16 +4,11 @@ set -xe
 
 cd "$(dirname "$0")"
 
-#DEST=../target/mnt
-
 mkdir -p tmp
 
 for blobs in bootcode.bin fixup.dat start.elf ; do
 	wget -q -P tmp https://github.com/raspberrypi/firmware/raw/master/boot/${blobs}
 done
-
-#cp files/rpi/$DISTRO/config_$ARCH.txt $DEST/boot/config.txt
-#cp files/rpi/$DISTRO/cmdline.txt $DEST/boot/
 
 guestfish -a ../target/"$OUTPUT_IMG" -- \
 	run : \
@@ -25,6 +20,7 @@ guestfish -a ../target/"$OUTPUT_IMG" -- \
 	upload files/rpi/$DISTRO/config_$ARCH.txt /boot/config.txt : \
 	upload files/rpi/$DISTRO/cmdline.txt /boot/cmdline.txt
 
-rm -rf tmp
+virt-edit -a ../target/"$OUTPUT_IMG" \
+	-m /dev/sda2:/ -m /dev/sda1:/boot /boot/cmdline.txt -e "s|ROOT_PARTUUID|${ROOT_PARTUUID}|"
 
-#sed -i "s|ROOT_PARTUUID|${ROOT_PARTUUID}|" $DEST/boot/cmdline.txt
+rm -rf tmp
