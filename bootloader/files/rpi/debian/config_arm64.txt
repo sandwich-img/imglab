@@ -3,6 +3,6 @@ disable_overscan=1
 arm_control=0x200
 kernel=kernel8.img
 
-dtparam=sd_overclock=100
+#dtparam=sd_overclock=100
 dtparam=audio=yes
-dtoverlay=vc4-fkms-v3d
+#dtoverlay=vc4-fkms-v3d
