@@ -1,0 +1,17 @@
+FROM debian:stretch-slim
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+ADD http://uml.devloop.org.uk/kernels/kernel64-4.3.5.xz /
+
+RUN set -xe \
+  && apt-get update \
+  && apt-get install --no-install-recommends -y syslinux-common syslinux-efi \
+	libguestfs-tools zip wget xxd u-boot-tools uml-utilities xz-utils \
+  && unxz kernel64-4.3.5.xz \
+  && chmod +x /kernel64-4.3.5 \
+  && rm -rf /var/lib/apt/lists/* *.xz
+
+ENV LIBGUESTFS_BACKEND=uml
+ENV LIBGUESTFS_HV=/kernel64-4.3.5
+ENV TMPDIR=/tmp
