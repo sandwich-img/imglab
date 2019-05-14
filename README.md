@@ -1,4 +1,4 @@
-imghub, build linux img in docker way
+imglab, build linux img in docker way
 ===
 
 this project build raspbian style img with docker
