@@ -4,6 +4,7 @@ set -e
 
 normalize_arch() {
 	case "$1" in
+		arm* ) echo 'armhf' ;;
 		x86_64 ) echo 'x86_64';;
 		*) echo "$1";;
 	esac
