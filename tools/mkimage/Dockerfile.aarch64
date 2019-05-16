@@ -9,7 +9,7 @@ ENV DISTRO=alpine \
     BRANCH=edge \
     DEVICE=rpi
 
-RUN apk --update --no-cache add uboot-tools dosfstools e2fsprogs parted findutils util-linux tar zip vim
+RUN apk --update --no-cache add uboot-tools dosfstools e2fsprogs parted findutils util-linux tar zip vim bash sed grep
 RUN apk add --no-cache ca-certificates wget && update-ca-certificates
 
 CMD ["/mkimage"]
