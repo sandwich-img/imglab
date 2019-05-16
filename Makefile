@@ -15,5 +15,9 @@ export: kernel
 image: export
 	./scripts/mkimage.sh
 
+.PHONY: pxe
+pxe: export
+	./scripts/pxe.sh
+
 http:
 	./scripts/http.sh

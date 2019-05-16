@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -e
+
+SERVER_IP=$(ip route get 1 | grep -Eo '([0-9]*\.){3}[0-9]*' | tail -1)
+
+IFS=. read -r io1 io2 io3 io4 <<<"$SERVER_IP"
+BCAST="$io1"."$io2"."$io3".255
+
+cd target
+
+PXEDIR="pxe-$DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE"
+
+if [ -d "$PXEDIR" ]; then rm -rf "$PXEDIR" ; fi
+
+mkdir -p $PXEDIR
+
+tar xf $DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.tar -C $PXEDIR || true > /dev/null
+
+SERVER_IP=$SERVER_IP ../pxe/setup_pxe_$DEVICE.sh
+
+sed "s|SERVER_IP|$SERVER_IP|g" ../pxe/files/$DEVICE/fstab > $PXEDIR/etc/fstab
+
+mv $PXEDIR/etc/hostname.new $PXEDIR/etc/hostname
+mv $PXEDIR/etc/hosts.new $PXEDIR/etc/hosts
+mv $PXEDIR/firstboot $PXEDIR/firstboot~
+
+sed "s|192.168.1.255|$BCAST|g" ../pxe/files/$DEVICE/dnsmasq.conf > dnsmasq.conf
