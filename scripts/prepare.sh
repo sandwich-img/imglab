@@ -16,3 +16,4 @@ if [ "$HOST_ARCH" = "x86_64" ] && [ $(normalize_arch $ARCH) != $(normalize_arch 
 	touch prepare
 fi
 
+lsmod | grep loop > /dev/null || modprobe loop || echo "Failed to Load the Loop Device Kernel Module "
