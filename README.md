@@ -60,5 +60,7 @@ support matrix
 
 > ⛔ rpi archlinux xfce4 is broken
 
+> ubuntu disco rootfs need fix
+
 more distros will add later
 
