@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -xe
+
+novnc_server --vnc localhost:5901 &
+
+cd target
+
+unzip $DISTRO-$DESKTOP-$ARCH-$BRANCH-$DEVICE.zip
+
+../kvm/run_qemu_$DEVICE.sh

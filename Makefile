@@ -19,5 +19,9 @@ image: export
 pxe: export
 	./scripts/pxe.sh
 
+.PHONY: kvm
+kvm: image
+	./scripts/kvm.sh
+
 http:
 	./scripts/http.sh
